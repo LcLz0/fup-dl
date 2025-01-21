@@ -10,17 +10,13 @@ URL = "https://fup.link/api/tr/"
 
 
 def _get_cities() -> list:
-    path = "tr/"
-    r = requests.get(URL + path)
+    r = requests.get(URL)
     data = json.loads(r.text)
     cities = [(x["name"], x["slug"]) for x in data]
     return cities
 
 
-def _get_cases(city: str) -> list:
-    path = f"tr/{city}/"
     r = requests.get(URL + path)
-    print(r)
 
 
 def main():
