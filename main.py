@@ -48,8 +48,6 @@ def main():
         [print(x[0]) for x in cities]
         sys.exit(0)
 
-    if args.city:
-        print(args.city)
 
 
 if __name__ == "__main__":
