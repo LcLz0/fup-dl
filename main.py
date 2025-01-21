@@ -10,7 +10,6 @@ URL = "https://fup.link/api/"
 
 
 def _get_city_slug(target: str, cities: list):
-    target_city = ""
     for city in cities:
         if target.lower() == city[0].lower():
             return city
