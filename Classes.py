@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import time
 
 import requests
@@ -28,3 +29,12 @@ class Case:
         for case_file in r:
             self.file_list.append(File(case_file["name"], case_file["url"]))
             time.sleep(0.2)
+
+    def download_case(self, target_dir):
+        dir_name = f"{target_dir}{self.court}/{self.slug}/"
+        os.makedirs(dir_name, exist_ok=True)
+        for entry in self.file_list:
+            r = requests.get(entry.url)
+            time.sleep(0.2)
+            with open(f"{target_dir}{self.court}/{self.slug}/{entry.name}", "wb") as fh:
+                fh.write(r.content)
