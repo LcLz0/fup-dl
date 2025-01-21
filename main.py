@@ -30,7 +30,9 @@ def _get_cases(city_slug: str):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Downloader script for fup.link API")
+    parser = argparse.ArgumentParser(
+        description="Downloader script for fup.link API. Cache file will be placed in target download directory"
+    )
     download_or_list = parser.add_mutually_exclusive_group(required=True)
     download_or_list.add_argument(
         "-l",
@@ -52,6 +54,7 @@ def main():
     if target_city is None:
         print(f"City {args.city} not found. Exiting")
         sys.exit(1)
+
     cases = _get_cases(target_city)
     time.sleep(0.3)
 
