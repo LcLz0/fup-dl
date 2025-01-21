@@ -23,7 +23,7 @@ def _get_city_slug(target: str, cities: list) -> str:
             return city[1]
 
 
-def _get_cases(city_slug: str) -> str:
+def _get_cases(city_slug: str):
     path = f"{city_slug}"
     r = requests.get(URL + path)
     return json.loads(r.text)["cases"]
