@@ -6,13 +6,7 @@ import sys
 
 import requests
 
-URL = "https://fup.link/api/"
-
-
-def _get_city_slug(target: str, cities: list):
-    for city in cities:
-        if target.lower() == city[0].lower():
-            return city
+URL = "https://fup.link/api/tr/"
 
 
 def _get_cities() -> list:
