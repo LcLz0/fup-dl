@@ -18,6 +18,7 @@ class Case:
         self.title = case["title"]
         self.slug = case["slug"]
         self.court_slug = case["courtSlug"]
+        self.court = self.title.split()[0]
         self.file_list = list()
 
     def populate_files(self):
