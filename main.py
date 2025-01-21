@@ -22,7 +22,10 @@ def _get_city_slug(target: str, cities: list) -> str:
             return city[1]
 
 
+def _get_cases(city_slug: str) -> str:
+    path = f"{city_slug}"
     r = requests.get(URL + path)
+    return json.loads(r.text)["cases"]
 
 
 def main():
@@ -43,6 +46,11 @@ def main():
         [print(x[0]) for x in cities]
         sys.exit(0)
 
+    target_city = _get_city_slug(args.city, cities)
+    if target_city is None:
+        print(f"City {args.city} not found. Exiting")
+        sys.exit(1)
+    cases = _get_cases(target_city)
 
 
 if __name__ == "__main__":
