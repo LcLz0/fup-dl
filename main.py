@@ -3,6 +3,7 @@
 import argparse
 import json
 import sys
+import time
 
 import requests
 
@@ -41,6 +42,7 @@ def main():
     args = parser.parse_args()
 
     cities = _get_cities()
+    time.sleep(0.3)
 
     if args.list_cities:
         [print(x[0]) for x in cities]
@@ -51,6 +53,7 @@ def main():
         print(f"City {args.city} not found. Exiting")
         sys.exit(1)
     cases = _get_cases(target_city)
+    time.sleep(0.3)
 
 
 if __name__ == "__main__":
