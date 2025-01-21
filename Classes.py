@@ -23,6 +23,7 @@ class Case:
 
     def populate_files(self):
         r = requests.get(f"{URL}{self.court_slug}/{self.slug}")
+        time.sleep(0.2)
         r = r.json()["files"]
         for case_file in r:
             self.file_list.append(File(case_file["name"], case_file["url"]))
