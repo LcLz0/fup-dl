@@ -10,7 +10,6 @@ URL = "https://fup.link/api/"
 
 
 def _get_city_slug(city: str):
-    cities = _get_cities()
     target_slug = ""
     for city in cities:
 
@@ -42,8 +41,9 @@ def main():
     download_or_list.add_argument("-c", "--city", help="Target city to download")
     args = parser.parse_args()
 
+    cities = _get_cities()
+
     if args.list_cities:
-        cities = _get_cities(URL)
         [print(x[0]) for x in cities]
         sys.exit(0)
 
