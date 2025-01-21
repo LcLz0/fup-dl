@@ -18,7 +18,7 @@ def _get_city_slug(city: str):
 
 def _get_cities() -> list:
     path = "tr/"
-    r = requests.get(URL+ path)
+    r = requests.get(URL + path)
     data = json.loads(r.text)
     cities = [(x["name"], x["slug"]) for x in data]
     return cities
