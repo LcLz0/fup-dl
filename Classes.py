@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import time
 
 import requests
@@ -12,6 +13,18 @@ class File:
     def __init__(self, name, url) -> None:
         self.name = name
         self.url = url
+
+    def download_file(self, target_dir):
+        download_target = f"{target_dir}/{self.name}"
+        try:
+            r = requests.get(self.url)
+            r.raise_for_status()
+        except requests.HTTPError as e:
+            print(f"Failed to download {self.name}.")
+            print(e)
+            return
+        with open(download_target, "wb") as fh:
+            fh.write(r.content)
 
 
 class Case:
@@ -28,13 +41,10 @@ class Case:
         r = r.json()["files"]
         for case_file in r:
             self.file_list.append(File(case_file["name"], case_file["url"]))
-            time.sleep(0.2)
 
     def download_case(self, target_dir):
         dir_name = f"{target_dir}{self.court}/{self.slug}/"
         os.makedirs(dir_name, exist_ok=True)
         for entry in self.file_list:
-            r = requests.get(entry.url)
-            time.sleep(0.2)
-            with open(f"{target_dir}{self.court}/{self.slug}/{entry.name}", "wb") as fh:
-                fh.write(r.content)
+            entry.download_file(dir_name)
+            time.sleep(0.5)
