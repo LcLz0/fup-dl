@@ -43,6 +43,7 @@ def main():
         help="Print available cities and exit",
     )
     group.add_argument("-c", "--city", help="Target city to download")
+    parser.add_argument("-d", "--dir", default="./" help="Directory for download. Default is PWD")
     args = parser.parse_args()
 
     cities = _get_cities()
@@ -64,7 +65,7 @@ def main():
     for case in cases:
         print(f"Downloading case: {case.title}")
         case.populate_files()
-        case.download_case("./")
+        case.download_case(args.dir)
 
 
 if __name__ == "__main__":
