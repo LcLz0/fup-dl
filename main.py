@@ -62,7 +62,7 @@ def main():
     )
     group.add_argument("-c", "--city", help="Target city to download")
     parser.add_argument(
-        "-d", "--dir", default="./", help="Directory for download. Default is PWD"
+        "-d", "--dir", default="./", help="Directory for download. Default is CWD"
     )
     parser.add_argument(
         "--show-files", action="store_true", help="Will print out every file download"
