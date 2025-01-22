@@ -19,7 +19,7 @@ def _get_cities() -> list:
     return cities
 
 
-def _get_city_slug(target: str, cities: list) -> str:
+def _get_city_slug(target: str, cities: list) -> str | None:
     for city in cities:
         if target.lower() == city[0].lower():
             return city[1]
