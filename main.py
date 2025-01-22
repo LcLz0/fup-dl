@@ -31,7 +31,7 @@ def _get_cases(city_slug: str):
     return json.loads(r.text)["cases"]
 
 
-def _read_cache(dir, city):
+def _read_cache(dir, city) -> set:
     cache = set()
     try:
         with open(f"{dir}/{city.title()}/fupdl.cache", "r") as fh:
@@ -42,7 +42,7 @@ def _read_cache(dir, city):
     return set(cache)
 
 
-def _write_cache(cache, dir, city):
+def _write_cache(cache, dir, city) -> None:
     with open(f"{dir}/{city.title()}/fupdl.cache", "w") as fh:
         for item in cache:
             if item:
