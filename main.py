@@ -7,6 +7,8 @@ import time
 
 import requests
 
+from Classes import Case
+
 URL = "https://fup.link/api/tr/"
 
 
@@ -57,6 +59,12 @@ def main():
 
     cases = _get_cases(target_city)
     time.sleep(0.3)
+
+    cases = [Case(x) for x in cases]
+    for case in cases:
+        print(f"Downloading case: {case.title}")
+        case.populate_files()
+        case.download_case("./")
 
 
 if __name__ == "__main__":
