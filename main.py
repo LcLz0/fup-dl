@@ -35,14 +35,14 @@ def main():
     parser = argparse.ArgumentParser(
         description="Downloader script for fup.link API. Cache file will be placed in target download directory"
     )
-    download_or_list = parser.add_mutually_exclusive_group(required=True)
-    download_or_list.add_argument(
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
         "-l",
         "--list-cities",
         action="store_true",
         help="Print available cities and exit",
     )
-    download_or_list.add_argument("-c", "--city", help="Target city to download")
+    group.add_argument("-c", "--city", help="Target city to download")
     args = parser.parse_args()
 
     cities = _get_cities()
