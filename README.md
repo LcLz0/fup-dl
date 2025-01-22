@@ -1,3 +1,3 @@
 # fup-dl
 
-Downloader script for fup.link API
+Downloader tool for fup.link API
