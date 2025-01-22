@@ -14,8 +14,10 @@ class File:
         self.name = name
         self.url = url
 
-    def download_file(self, target_dir):
+    def download_file(self, target_dir, show_files):
         download_target = f"{target_dir}/{self.name}"
+        if show_files:
+            print(f"Downloading file: {self.name}")
         try:
             r = requests.get(self.url)
             r.raise_for_status()
@@ -42,9 +44,9 @@ class Case:
         for case_file in r:
             self.file_list.append(File(case_file["name"], case_file["url"]))
 
-    def download_case(self, target_dir):
+    def download_case(self, target_dir, show_files):
         dir_name = f"{target_dir}{self.court}/{self.slug}/"
         os.makedirs(dir_name, exist_ok=True)
         for entry in self.file_list:
-            entry.download_file(dir_name)
+            entry.download_file(dir_name, show_files)
             time.sleep(0.5)

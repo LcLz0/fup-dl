@@ -46,6 +46,9 @@ def main():
     parser.add_argument(
         "-d", "--dir", default="./", help="Directory for download. Default is PWD"
     )
+    parser.add_argument(
+        "--show-files", action="store_true", help="Will print out every file download"
+    )
 
     args = parser.parse_args()
 
@@ -66,9 +69,11 @@ def main():
 
     cases = [Case(x) for x in cases]
     for case in cases:
+        if args.show_files:
+            print("")
         print(f"Downloading case: {case.title}")
         case.populate_files()
-        case.download_case(args.dir)
+        case.download_case(args.dir, args.show_files)
 
 
 if __name__ == "__main__":
