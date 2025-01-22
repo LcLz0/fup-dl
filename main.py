@@ -43,7 +43,10 @@ def main():
         help="Print available cities and exit",
     )
     group.add_argument("-c", "--city", help="Target city to download")
-    parser.add_argument("-d", "--dir", default="./" help="Directory for download. Default is PWD")
+    parser.add_argument(
+        "-d", "--dir", default="./", help="Directory for download. Default is PWD"
+    )
+
     args = parser.parse_args()
 
     cities = _get_cities()
