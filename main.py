@@ -31,9 +31,27 @@ def _get_cases(city_slug: str):
     return json.loads(r.text)["cases"]
 
 
+def _read_cache(dir, city):
+    cache = set()
+    try:
+        with open(f"{dir}/{city.title()}/fupdl.cache", "r") as fh:
+            cache = fh.readlines()
+            cache = [x.strip() for x in cache]
+    except FileNotFoundError:
+        print("Cache not found.")
+    return set(cache)
+
+
+def _write_cache(cache, dir, city):
+    with open(f"{dir}/{city.title()}/fupdl.cache", "w") as fh:
+        for item in cache:
+            if item:
+                fh.write(f"{item}\n")
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="Downloader script for fup.link API. Cache file will be placed in target download directory"
+        description="Downloader script for fup.link API. Cache file will be placed in target download directory, one cache per city"
     )
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
@@ -68,12 +86,21 @@ def main():
     time.sleep(0.3)
 
     cases = [Case(x) for x in cases]
+    cache = _read_cache(args.dir, args.city)
     for case in cases:
+        if case.slug in cache:
+            print(f"Case {case.slug} found in cache. Ignoring")
+            continue
         if args.show_files:
             print("")
         print(f"Downloading case: {case.title}")
         case.populate_files()
         case.download_case(args.dir, args.show_files)
+        cache.add(case.slug)
+
+    print("All done. Writing cache")
+    _write_cache(cache, args.dir, args.city)
+    print("Cache written. Exiting")
 
 
 if __name__ == "__main__":
